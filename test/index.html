@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotakos App</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        /* Styly zůstávají stejné jako v předchozí verzi */
+        body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; margin: 1rem; }
+        .hidden { display: none; }
+        /* ... (zbytek CSS stylů ponechte stejný) ... */
+    </style>
+</head>
+<body>
+    <!-- Obsah zůstává stejný jako dříve -->
+    <div id="login-container" class="container">
+        <!-- ... (přihlašovací formulář) ... -->
+    </div>
+    <div id="content-container" class="container hidden">
+        <!-- ... (obsah po přihlášení) ... -->
+    </div>
+
+    <script>
+        // JavaScript zůstává stejný jako v předchozí verzi
+        const NASTAVENI = {
+            HESLO: "kotakos",
+            ULOZISTE: "kotakos_prihlaseni",
+            GITHUB_URL: "https://github.com/VASE_UZIVATELSKE_JMENO/boot"
+        };
+        // ... (zbytek JavaScriptu) ...
+    </script>
+</body>
+</html>
