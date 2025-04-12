@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zabezpečená stránka</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-container" class="container">
+        <h1>Vítejte</h1>
+        <p>Pro přístup k obsahu zadejte heslo:</p>
+        <input type="password" id="password-input" placeholder="Zadejte heslo">
+        <button id="login-btn">Přihlásit</button>
+        <div id="error-message" class="error"></div>
+        <div class="remember">
+            <input type="checkbox" id="remember-me">
+            <label for="remember-me">Zapamatovat přihlášení</label>
+        </div>
+    </div>
+
+    <div id="content-container" class="container hidden">
+        <h1>Tajný obsah</h1>
+        <p>Gratulujeme! Úspěšně jste se přihlásili.</p>
+        <p>Toto je váš chráněný obsah, který je viditelný pouze po zadání správného hesla.</p>
+        <button id="logout-btn">Odhlásit</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
