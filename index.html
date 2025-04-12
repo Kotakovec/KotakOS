@@ -45,6 +45,9 @@
             cursor: pointer;
             font-size: 16px;
             margin-top: 10px;
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
         }
         button:hover {
             background-color: #45a049;
@@ -54,6 +57,12 @@
         }
         #logout-btn:hover {
             background-color: #d32f2f;
+        }
+        #github-btn {
+            background-color: #24292e;
+        }
+        #github-btn:hover {
+            background-color: #2d333b;
         }
         .error {
             color: #f44336;
@@ -86,6 +95,12 @@
         <h1>Tajný obsah</h1>
         <p>Gratulujeme! Úspěšně jste se přihlásili.</p>
         <p>Toto je váš chráněný obsah, který je viditelný pouze po zadání správného hesla.</p>
+        
+        <!-- Nové tlačítko pro GitHub -->
+        <button id="github-btn" onclick="window.location.href='https://github.com/vase-uzivatelske-jmeno/boot'">
+            Pokračovat do GitHub (/boot)
+        </button>
+        
         <button id="logout-btn">Odhlásit</button>
     </div>
 
