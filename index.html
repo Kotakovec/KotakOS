@@ -3,218 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#4CAF50">
     <title>Kotak OS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4CAF50;
-            --primary-dark: #388E3C;
-            --github: #24292e;
-            --error: #f44336;
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --error-color: #f72585;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4ad66d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            -webkit-tap-highlight-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--dark-color);
         }
         
-        .card {
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 2rem;
+        }
+        
+        /* Přihlašovací formulář */
+        .auth-box {
             background: white;
-            width: 100%;
-            max-width: 400px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            display: flex;
+            max-width: 900px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
         }
         
-        .header {
-            background: var(--primary);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .content {
-            padding: 25px;
-        }
-        
-        input {
-            width: 100%;
-            padding: 14px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border 0.3s;
-        }
-        
-        input:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-        
-        button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 500;
-            margin-top: 10px;
-            cursor: pointer;
-            transition: transform 0.1s, background 0.3s;
-        }
-        
-        button:active {
-            transform: scale(0.98);
-        }
-        
-        .btn-login {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .btn-login:hover {
-            background: var(--primary-dark);
-        }
-        
-        .btn-github {
-            background: var(--github);
-            color: white;
+        .auth-image {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-        }
-        
-        .btn-logout {
-            background: var(--error);
+            padding: 2rem;
             color: white;
         }
         
-        .error {
-            color: var(--error);
-            text-align: center;
-            margin: 10px 0;
-            min-height: 20px;
+        .auth-image img {
+            max-width: 100%;
+            height: auto;
         }
         
-        .remember {
+        .auth-content {
+            flex: 1;
+            padding: 3rem;
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo h1 {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .error-msg {
+            color: var(--error-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        /* Checkbox pro zapamatování hesla */
+        .remember-me {
             display: flex;
             align-items: center;
-            margin: 15px 0;
+            margin: 1rem 0;
         }
         
-        .hidden {
+        .remember-me input {
+            margin-right: 0.5rem;
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Zabezpečený obsah */
+        .secured-content {
             display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .secured-content h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .secured-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 250px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .logout-btn {
+            background: var(--light-color);
+            color: var(--error-color);
+            border: 2px solid var(--error-color);
+            margin-top: 2rem;
+        }
+        
+        .logout-btn:hover {
+            background: var(--error-color);
+            color: white;
+        }
+        
+        /* Animace */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responzivita */
+        @media (max-width: 768px) {
+            .auth-box {
+                flex-direction: column;
+            }
+            
+            .auth-image {
+                display: none;
+            }
+            
+            .auth-content {
+                padding: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="header">Kotak OS</div>
-        
-        <div id="login-view">
-            <div class="content">
-                <p>Pro přístup zadejte heslo:</p>
-                <input type="password" id="password" placeholder="Heslo" autocomplete="current-password">
-                <button class="btn-login" id="login-btn">Přihlásit</button>
-                <div id="error" class="error"></div>
-                <div class="remember">
-                    <input type="checkbox" id="remember">
-                    <label for="remember">Zapamatovat přihlášení</label>
+    <div class="container">
+        <!-- Přihlašovací sekce -->
+        <div id="loginSection" class="auth-box">
+            <div class="auth-image">
+                <div>
+                    <svg width="200" height="200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 15V17M6 21H18C19.1046 21 20 20.1046 20 19V13C20 11.8954 19.1046 11 18 11H6C4.89543 11 4 11.8954 4 13V19C4 20.1046 4.89543 21 6 21ZM16 11V7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7V11H16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h2 style="margin-top: 1rem;">Zabezpečený přístup</h2>
+                    <p style="opacity: 0.8;">Pro pokračování se prosím přihlaste</p>
                 </div>
+            </div>
+            <div class="auth-content">
+                <div class="logo">
+                    <h1>Vítejte zpět</h1>
+                </div>
+                <form class="auth-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="passwordInput">Heslo</label>
+                        <input type="password" id="passwordInput" class="form-control" placeholder="Zadejte své heslo" required>
+                        <div class="error-msg" id="errorMsg">Nesprávné heslo. Zkuste to prosím znovu.</div>
+                    </div>
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Zapamatovat si mě na tomto zařízení</label>
+                    </div>
+                    <button type="button" id="loginBtn" class="btn btn-block">Přihlásit se</button>
+                </form>
             </div>
         </div>
         
-        <div id="main-view" class="hidden">
-            <div class="content">
-                <p>Vítejte v Kotak OS!</p>
-                <button class="btn-github" id="github-btn">
-                    <svg width="20" height="20" viewBox="0 0 16 16" fill="white">
-                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                    </svg>
-                    Otevřít GitHub /boot
-                </button>
-                <button class="btn-logout" id="logout-btn">Odhlásit</button>
+        <!-- Zabezpečený obsah -->
+        <div id="securedContent" class="secured-content">
+            <h1>Vítejte v zabezpečené zóně!</h1>
+            <p>Gratulujeme, úspěšně jste se přihlásili. Nyní máte přístup k exkluzivním materiálům a funkcím.</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Zabezpečení</h3>
+                    <p>Vaše data jsou v bezpečí díky špičkovému šifrování.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 15C3 17.8284 3 19.2426 3.87868 20.1213C4.75736 21 6.17157 21 9 21H15C17.8284 21 19.2426 21 20.1213 20.1213C21 19.2426 21 17.8284 21 15M12 16V3M12 16L8 12M12 16L16 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Snadné sdílení</h3>
+                    <p>Sdílejte dokumenty s kolegy během okamžiku.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 20L14 4M18 8L22 12L18 16M6 16L2 12L6 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Integrace</h3>
+                    <p>Propojení s vašimi oblíbenými nástroji.</p>
+                </div>
             </div>
+            
+            <button id="logoutBtn" class="btn logout-btn">Odhlásit se</button>
         </div>
     </div>
 
     <script>
-        // Konfigurace
-        const CONFIG = {
-            APP_NAME: "Kotak OS",
-            PASSWORD: "kotakos",
-            GITHUB_URL: "https://github.com/VASE_UZIVATELSKE_JMENO/boot" // ZMĚŇTE!
-        };
-
-        // Elementy
-        const loginView = document.getElementById('login-view');
-        const mainView = document.getElementById('main-view');
-        const passwordInput = document.getElementById('password');
-        const loginBtn = document.getElementById('login-btn');
-        const githubBtn = document.getElementById('github-btn');
-        const logoutBtn = document.getElementById('logout-btn');
-        const rememberCheckbox = document.getElementById('remember');
-        const errorElement = document.getElementById('error');
-
-        // Přihlášení
-        function login() {
-            if(passwordInput.value === CONFIG.PASSWORD) {
-                loginView.classList.add('hidden');
-                mainView.classList.remove('hidden');
-                errorElement.textContent = '';
+        // Správné heslo (můžete změnit)
+        const CORRECT_PASSWORD = "mojeheslo123";
+        // Klíče pro ukládání
+        const REMEMBER_ME_KEY = "rememberMeEnabled";
+        const SAVED_PASSWORD_KEY = "savedPassword";
+        
+        // Prvky DOM
+        const loginSection = document.getElementById("loginSection");
+        const securedContent = document.getElementById("securedContent");
+        const passwordInput = document.getElementById("passwordInput");
+        const loginBtn = document.getElementById("loginBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const errorMsg = document.getElementById("errorMsg");
+        const loginForm = document.getElementById("loginForm");
+        const rememberMeCheckbox = document.getElementById("rememberMe");
+        
+        // Načtení uloženého stavu při načtení stránky
+        document.addEventListener("DOMContentLoaded", () => {
+            const rememberMe = localStorage.getItem(REMEMBER_ME_KEY) === "true";
+            const savedPassword = rememberMe ? localStorage.getItem(SAVED_PASSWORD_KEY) : null;
+            
+            if (rememberMe) {
+                rememberMeCheckbox.checked = true;
                 
-                if(rememberCheckbox.checked) {
-                    localStorage.setItem('kotak_os_auth', 'true');
+                if (savedPassword && savedPassword === CORRECT_PASSWORD) {
+                    // Automatické přihlášení pokud je heslo uloženo a správné
+                    passwordInput.value = savedPassword;
+                    loginBtn.click();
                 }
-            } else {
-                errorElement.textContent = 'Nesprávné heslo!';
-                passwordInput.focus();
             }
-        }
-
-        // Odhlášení
-        function logout() {
-            mainView.classList.add('hidden');
-            loginView.classList.remove('hidden');
-            localStorage.removeItem('kotak_os_auth');
-            passwordInput.value = '';
-            passwordInput.focus();
-        }
-
-        // Kontrola přihlášení
-        function checkAuth() {
-            if(localStorage.getItem('kotak_os_auth') === 'true') {
-                loginView.classList.add('hidden');
-                mainView.classList.remove('hidden');
-            }
-        }
-
-        // Event listeners
-        loginBtn.addEventListener('click', login);
-        logoutBtn.addEventListener('click', logout);
-        githubBtn.addEventListener('click', () => {
-            window.open(CONFIG.GITHUB_URL, '_blank');
         });
         
-        passwordInput.addEventListener('keypress', (e) => {
-            if(e.key === 'Enter') login();
+        // Přihlašovací tlačítko
+        loginBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const enteredPassword = passwordInput.value.trim();
+            
+            if (enteredPassword === CORRECT_PASSWORD) {
+                // Uložení hesla pokud je zaškrtnuto "Zapamatovat si mě"
+                if (rememberMeCheckbox.checked) {
+                    localStorage.setItem(REMEMBER_ME_KEY, "true");
+                    localStorage.setItem(SAVED_PASSWORD_KEY, enteredPassword);
+                } else {
+                    // Pokud není zaškrtnuto, vymažeme uložená data
+                    localStorage.removeItem(REMEMBER_ME_KEY);
+                    localStorage.removeItem(SAVED_PASSWORD_KEY);
+                }
+                
+                showSecuredContent();
+            } else {
+                errorMsg.style.display = "block";
+                passwordInput.style.borderColor = "var(--error-color)";
+                passwordInput.focus();
+            }
         });
-
-        // Inicializace
-        checkAuth();
-        document.title = CONFIG.APP_NAME;
+        
+        // Reset chybové zprávy při novém zadávání
+        passwordInput.addEventListener("input", () => {
+            errorMsg.style.display = "none";
+            passwordInput.style.borderColor = "#e9ecef";
+        });
+        
+        // Možnost použít Enter pro přihlášení
+        loginForm.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                loginBtn.click();
+            }
+        });
+        
+        // Odhlašovací tlačítko
+        logoutBtn.addEventListener("click", () => {
+            // Pokud není zaškrtnuto "Zapamatovat si mě", vymažeme heslo
+            if (!rememberMeCheckbox.checked) {
+                localStorage.removeItem(SAVED_PASSWORD_KEY);
+            }
+            
+            showLoginForm();
+            passwordInput.value = "";
+            errorMsg.style.display = "none";
+            passwordInput.style.borderColor = "#e9ecef";
+        });
+        
+        // Funkce pro zobrazení zabezpečeného obsahu
+        function showSecuredContent() {
+            loginSection.style.display = "none";
+            securedContent.style.display = "block";
+        }
+        
+        // Funkce pro zobrazení přihlašovacího formuláře
+        function showLoginForm() {
+            loginSection.style.display = "flex";
+            securedContent.style.display = "none";
+        }
     </script>
 </body>
 </html>
