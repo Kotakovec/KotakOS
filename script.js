@@ -1,5 +1,5 @@
 // Nastavení
-const CORRECT_PASSWORD = "kotakos"; // Změňte toto na své skutečné heslo
+const CORRECT_PASSWORD = "kotakos"; // Heslo je nyní "kotakos"
 const STORAGE_KEY = "password_remembered";
 
 // DOM elementy
