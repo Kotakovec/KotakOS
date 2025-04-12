@@ -34,7 +34,7 @@ input[type="password"] {
 }
 
 button {
-    background-color: #4CAF50;
+    background-color: #0004ff;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -45,7 +45,7 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #0004e9;
 }
 
 #logout-btn {
