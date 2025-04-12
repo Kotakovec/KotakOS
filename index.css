@@ -14,14 +14,14 @@
   text-transform: uppercase;
   font-size: 0.875rem;
   letter-spacing: 1px;
-  background-image: linear-gradient(#a000ff, #0064ff);
+  background-image: linear-gradient(#c200ff, #3000ff);
   margin: 30px auto 60px;
 }
 
 @media (max-width: 1199px) {
   .u-section-1 .u-text-1 {
     margin-right: 742px;
-    font-size: 3.75rem;
+    font-size: 3.681818181818182rem;
   }
 }
 
@@ -56,6 +56,5 @@
     --animation-custom_in-rotate: 0deg;
     --animation-custom_in-scale: 1;
     margin-top: 60px;
-    margin-bottom: -59px;
   }
 }
