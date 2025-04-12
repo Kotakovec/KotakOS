@@ -3,190 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4CAF50">
     <title>Kotak OS</title>
     <style>
-        /* Základní styly */
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --github: #24292e;
+            --error: #f44336;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        .container {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            margin: 1rem;
-        }
-        
-        /* Tlačítka a vstupy */
-        input[type="password"] {
+        .card {
+            background: white;
             width: 100%;
-            padding: 12px;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .content {
+            padding: 25px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px;
             margin: 10px 0;
             border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 16px;
+            transition: border 0.3s;
         }
         
-        .btn {
-            color: white;
-            padding: 12px;
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
             border: none;
             border-radius: 8px;
-            cursor: pointer;
             font-size: 16px;
-            margin: 8px 0;
-            width: 100%;
-            display: block;
+            font-weight: 500;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.3s;
+        }
+        
+        button:active {
+            transform: scale(0.98);
         }
         
         .btn-login {
-            background-color: #4CAF50;
+            background: var(--primary);
+            color: white;
         }
         
-        .btn-logout {
-            background-color: #f44336;
+        .btn-login:hover {
+            background: var(--primary-dark);
         }
         
         .btn-github {
-            background-color: #24292e;
+            background: var(--github);
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
         }
         
-        /* Skrytí prvků */
+        .btn-logout {
+            background: var(--error);
+            color: white;
+        }
+        
+        .error {
+            color: var(--error);
+            text-align: center;
+            margin: 10px 0;
+            min-height: 20px;
+        }
+        
+        .remember {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
         .hidden {
             display: none;
         }
     </style>
 </head>
 <body>
-    <!-- Přihlašovací obrazovka -->
-    <div id="login-container" class="container">
-        <h1>Vítejte</h1>
-        <p>Pro přístup zadejte heslo:</p>
-        <input type="password" id="password-input" placeholder="Zadejte heslo">
-        <button id="login-btn" class="btn btn-login">Přihlásit</button>
-        <div id="error-message" style="color: red; margin: 10px 0;"></div>
-        <div style="margin: 15px 0; text-align: left;">
-            <input type="checkbox" id="remember-me">
-            <label for="remember-me">Zapamatovat přihlášení</label>
+    <div class="card">
+        <div class="header">Kotak OS</div>
+        
+        <div id="login-view">
+            <div class="content">
+                <p>Pro přístup zadejte heslo:</p>
+                <input type="password" id="password" placeholder="Heslo" autocomplete="current-password">
+                <button class="btn-login" id="login-btn">Přihlásit</button>
+                <div id="error" class="error"></div>
+                <div class="remember">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Zapamatovat přihlášení</label>
+                </div>
+            </div>
+        </div>
+        
+        <div id="main-view" class="hidden">
+            <div class="content">
+                <p>Vítejte v Kotak OS!</p>
+                <button class="btn-github" id="github-btn">
+                    <svg width="20" height="20" viewBox="0 0 16 16" fill="white">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                    Otevřít GitHub /boot
+                </button>
+                <button class="btn-logout" id="logout-btn">Odhlásit</button>
+            </div>
         </div>
     </div>
 
-    <!-- Hlavní obsah po přihlášení -->
-    <div id="content-container" class="container hidden">
-        <h1>Vítejte v aplikaci</h1>
-        <p>Úspěšně jste přihlášeni!</p>
-        
-        <!-- Tlačítko pro GitHub -->
-        <button id="github-btn" class="btn btn-github">
-            <svg height="20" viewBox="0 0 16 16" width="20" fill="white">
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
-            </svg>
-            Pokračovat na GitHub
-        </button>
-        
-        <button id="logout-btn" class="btn btn-logout">Odhlásit</button>
-    </div>
-
     <script>
-        // Nastavení aplikace
-        const NASTAVENI = {
-            HESLO: "kotakos",
-            ULOZISTE: "kotakos_prihlaseni",
-            GITHUB_URL: "https://github.com/VASE_UZIVATELSKE_JMENO/boot" // ZMĚŇTE NA SVŮJ ÚČET
+        // Konfigurace
+        const CONFIG = {
+            APP_NAME: "Kotak OS",
+            PASSWORD: "kotakos",
+            GITHUB_URL: "https://github.com/VASE_UZIVATELSKE_JMENO/boot" // ZMĚŇTE!
         };
 
-        // Připojení k prvkům na stránce
-        const prvky = {
-            login: document.getElementById('login-container'),
-            obsah: document.getElementById('content-container'),
-            heslo: document.getElementById('password-input'),
-            loginBtn: document.getElementById('login-btn'),
-            logoutBtn: document.getElementById('logout-btn'),
-            githubBtn: document.getElementById('github-btn'),
-            zapamatovat: document.getElementById('remember-me'),
-            chyba: document.getElementById('error-message')
-        };
+        // Elementy
+        const loginView = document.getElementById('login-view');
+        const mainView = document.getElementById('main-view');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('login-btn');
+        const githubBtn = document.getElementById('github-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const rememberCheckbox = document.getElementById('remember');
+        const errorElement = document.getElementById('error');
 
-        // Hlavní funkce aplikace
-        function spustitAplikaci() {
-            nastavitPosluchace();
-            zkontrolovatPrihlaseni();
-        }
-
-        // Nastavení posluchačů událostí
-        function nastavitPosluchace() {
-            prvky.loginBtn.addEventListener('click', prihlasit);
-            prvky.logoutBtn.addEventListener('click', odhlasit);
-            prvky.githubBtn.addEventListener('click', () => {
-                window.location.href = NASTAVENI.GITHUB_URL;
-            });
-            
-            prvky.heslo.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') prihlasit();
-            });
-        }
-
-        // Přihlášení uživatele
-        function prihlasit() {
-            const zadaneHeslo = prvky.heslo.value.trim();
-            
-            if (zadaneHeslo === NASTAVENI.HESLO) {
-                // Úspěšné přihlášení
-                prvky.login.classList.add('hidden');
-                prvky.obsah.classList.remove('hidden');
-                prvky.chyba.textContent = '';
+        // Přihlášení
+        function login() {
+            if(passwordInput.value === CONFIG.PASSWORD) {
+                loginView.classList.add('hidden');
+                mainView.classList.remove('hidden');
+                errorElement.textContent = '';
                 
-                // Zapamatování přihlášení
-                if (prvky.zapamatovat.checked) {
-                    localStorage.setItem(NASTAVENI.ULOZISTE, 'true');
+                if(rememberCheckbox.checked) {
+                    localStorage.setItem('kotak_os_auth', 'true');
                 }
             } else {
-                // Neúspěšné přihlášení
-                prvky.chyba.textContent = 'Nesprávné heslo!';
-                prvky.heslo.value = '';
-                prvky.heslo.focus();
+                errorElement.textContent = 'Nesprávné heslo!';
+                passwordInput.focus();
             }
         }
 
-        // Odhlášení uživatele
-        function odhlasit() {
-            prvky.obsah.classList.add('hidden');
-            prvky.login.classList.remove('hidden');
-            localStorage.removeItem(NASTAVENI.ULOZISTE);
-            prvky.heslo.value = '';
-            prvky.zapamatovat.checked = false;
-            prvky.heslo.focus();
+        // Odhlášení
+        function logout() {
+            mainView.classList.add('hidden');
+            loginView.classList.remove('hidden');
+            localStorage.removeItem('kotak_os_auth');
+            passwordInput.value = '';
+            passwordInput.focus();
         }
 
-        // Kontrola přihlášení při načtení
-        function zkontrolovatPrihlaseni() {
-            const jePrihlasen = localStorage.getItem(NASTAVENI.ULOZISTE) === 'true';
-            
-            if (jePrihlasen) {
-                prvky.login.classList.add('hidden');
-                prvky.obsah.classList.remove('hidden');
-            } else {
-                prvky.heslo.focus();
+        // Kontrola přihlášení
+        function checkAuth() {
+            if(localStorage.getItem('kotak_os_auth') === 'true') {
+                loginView.classList.add('hidden');
+                mainView.classList.remove('hidden');
             }
         }
 
-        // Spuštění aplikace po načtení stránky
-        document.addEventListener('DOMContentLoaded', spustitAplikaci);
+        // Event listeners
+        loginBtn.addEventListener('click', login);
+        logoutBtn.addEventListener('click', logout);
+        githubBtn.addEventListener('click', () => {
+            window.open(CONFIG.GITHUB_URL, '_blank');
+        });
+        
+        passwordInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') login();
+        });
+
+        // Inicializace
+        checkAuth();
+        document.title = CONFIG.APP_NAME;
     </script>
 </body>
 </html>
