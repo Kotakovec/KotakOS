@@ -4,7 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zabezpečená stránka</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #logout-btn {
+            background-color: #f44336;
+        }
+        #logout-btn:hover {
+            background-color: #d32f2f;
+        }
+        .error {
+            color: #f44336;
+            margin: 10px 0;
+            min-height: 20px;
+        }
+        .remember {
+            margin: 15px 0;
+            text-align: left;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div id="login-container" class="container">
@@ -26,6 +89,76 @@
         <button id="logout-btn">Odhlásit</button>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Nastavení
+        const CORRECT_PASSWORD = "kotakos"; // ZDE JE NOVÉ HESLO
+        const STORAGE_KEY = "password_remembered";
+
+        // DOM elementy
+        const loginContainer = document.getElementById('login-container');
+        const contentContainer = document.getElementById('content-container');
+        const passwordInput = document.getElementById('password-input');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const rememberMe = document.getElementById('remember-me');
+        const errorMessage = document.getElementById('error-message');
+
+        // Funkce pro přihlášení
+        function login() {
+            const enteredPassword = passwordInput.value;
+            
+            if (enteredPassword === CORRECT_PASSWORD) {
+                // Správné heslo - zobraz obsah
+                loginContainer.classList.add('hidden');
+                contentContainer.classList.remove('hidden');
+                errorMessage.textContent = '';
+                
+                // Zapamatovat přihlášení, pokud je zaškrtnuto
+                if (rememberMe.checked) {
+                    localStorage.setItem(STORAGE_KEY, 'true');
+                }
+            } else {
+                // Špatné heslo - zobraz chybu
+                errorMessage.textContent = 'Nesprávné heslo. Zkuste to znovu.';
+                passwordInput.value = '';
+            }
+        }
+
+        // Funkce pro odhlášení
+        function logout() {
+            // Skryj obsah a zobraz přihlašovací formulář
+            contentContainer.classList.add('hidden');
+            loginContainer.classList.remove('hidden');
+            
+            // Vymaž zapamatované přihlášení
+            localStorage.removeItem(STORAGE_KEY);
+            passwordInput.value = '';
+            rememberMe.checked = false;
+        }
+
+        // Kontrola při načtení stránky - jestli je uživatel přihlášený
+        function checkRememberedLogin() {
+            const isRemembered = localStorage.getItem(STORAGE_KEY) === 'true';
+            
+            if (isRemembered) {
+                loginContainer.classList.add('hidden');
+                contentContainer.classList.remove('hidden');
+            }
+        }
+
+        // Event listeners
+        loginBtn.addEventListener('click', login);
+        logoutBtn.addEventListener('click', logout);
+
+        // Možnost přihlásit se i pomocí Enter
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+
+        // Při načtení stránky zkontroluj zapamatované přihlášení
+        window.addEventListener('DOMContentLoaded', checkRememberedLogin);
+    </script>
 </body>
 </html>
