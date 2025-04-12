@@ -1,5 +1,5 @@
 // Nastavení
-const CORRECT_PASSWORD = "tajneheslo"; // Změňte toto na své skutečné heslo
+const CORRECT_PASSWORD = "moreheslo"; // Změňte toto na své skutečné heslo
 const STORAGE_KEY = "password_remembered";
 
 // DOM elementy
