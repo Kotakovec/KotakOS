@@ -4,32 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kotakos App</title>
-    <link rel="manifest" href="manifest.json">
     <style>
-        /* Styly zůstávají stejné jako v předchozí verzi */
-        body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; margin: 1rem; }
-        .hidden { display: none; }
-        /* ... (zbytek CSS stylů ponechte stejný) ... */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button.github {
+            background-color: #24292e;
+            margin-top: 20px;
+        }
+        button.logout {
+            background-color: #f44336;
+            margin-top: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .error {
+            color: red;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
-    <!-- Obsah zůstává stejný jako dříve -->
     <div id="login-container" class="container">
-        <!-- ... (přihlašovací formulář) ... -->
+        <h1>Přihlášení</h1>
+        <p>Zadejte heslo pro přístup:</p>
+        <input type="password" id="password" placeholder="Heslo">
+        <button id="login-btn">Přihlásit</button>
+        <div id="error" class="error"></div>
+        <div style="margin-top: 15px;">
+            <input type="checkbox" id="remember">
+            <label for="remember">Zapamatovat přihlášení</label>
+        </div>
     </div>
+
     <div id="content-container" class="container hidden">
-        <!-- ... (obsah po přihlášení) ... -->
+        <h1>Vítejte!</h1>
+        <p>Úspěšně jste přihlášeni.</p>
+        <button class="github" id="github-btn">Přejít na GitHub /boot</button>
+        <button class="logout" id="logout-btn">Odhlásit se</button>
     </div>
 
     <script>
-        // JavaScript zůstává stejný jako v předchozí verzi
-        const NASTAVENI = {
-            HESLO: "kotakos",
-            ULOZISTE: "kotakos_prihlaseni",
-            GITHUB_URL: "https://github.com/VASE_UZIVATELSKE_JMENO/boot"
-        };
-        // ... (zbytek JavaScriptu) ...
+        // Nastavení
+        const PASSWORD = "kotakos";
+        const GITHUB_LINK = "https://github.com/VASE_UZIVATELSKE_JMENO/boot"; // ZMĚŇTE!
+        
+        // Elementy
+        const loginContainer = document.getElementById('login-container');
+        const contentContainer = document.getElementById('content-container');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const githubBtn = document.getElementById('github-btn');
+        const rememberCheckbox = document.getElementById('remember');
+        const errorElement = document.getElementById('error');
+
+        // Přihlášení
+        loginBtn.addEventListener('click', function() {
+            if (passwordInput.value === PASSWORD) {
+                loginContainer.classList.add('hidden');
+                contentContainer.classList.remove('hidden');
+                errorElement.textContent = '';
+                
+                if (rememberCheckbox.checked) {
+                    localStorage.setItem('kotakos_auth', 'true');
+                }
+            } else {
+                errorElement.textContent = 'Nesprávné heslo!';
+            }
+        });
+
+        // Odhlášení
+        logoutBtn.addEventListener('click', function() {
+            contentContainer.classList.add('hidden');
+            loginContainer.classList.remove('hidden');
+            localStorage.removeItem('kotakos_auth');
+            passwordInput.value = '';
+        });
+
+        // GitHub tlačítko
+        githubBtn.addEventListener('click', function() {
+            window.location.href = GITHUB_LINK;
+        });
+
+        // Kontrola přihlášení při načtení
+        if (localStorage.getItem('kotakos_auth') === 'true') {
+            loginContainer.classList.add('hidden');
+            contentContainer.classList.remove('hidden');
+        }
+
+        // Enter pro přihlášení
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loginBtn.click();
+            }
+        });
     </script>
 </body>
 </html>
