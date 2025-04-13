@@ -294,7 +294,7 @@
                         <input type="checkbox" id="rememberMe">
                         <label for="rememberMe">Zapamatovat si mě</label>
                     </div>
-                    <button type="button" id="loginBtn" class="btn btn-block">Přihlásit se</button>
+                    <button type="submit" id="loginBtn" class="btn btn-block">Přihlásit se</button>
                 </form>
             </div>
         </div>
@@ -315,4 +315,102 @@
                 </div>
             </div>
             
-            <button id="logoutBtn" class="btn logout
+            <button id="logoutBtn" class="btn logout-btn">Odhlásit se</button>
+        </div>
+    </div>
+
+    <script>
+        // Správné heslo (můžete změnit)
+        const CORRECT_PASSWORD = "kotakos";
+        // Klíče pro ukládání
+        const REMEMBER_ME_KEY = "rememberMeEnabled";
+        const SAVED_PASSWORD_KEY = "savedPassword";
+        
+        // Prvky DOM
+        const loginSection = document.getElementById("loginSection");
+        const securedContent = document.getElementById("securedContent");
+        const passwordInput = document.getElementById("passwordInput");
+        const loginBtn = document.getElementById("loginBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const errorMsg = document.getElementById("errorMsg");
+        const loginForm = document.getElementById("loginForm");
+        const rememberMeCheckbox = document.getElementById("rememberMe");
+        
+        // Načtení uloženého stavu při načtení stránky
+        document.addEventListener("DOMContentLoaded", () => {
+            const rememberMe = localStorage.getItem(REMEMBER_ME_KEY) === "true";
+            const savedPassword = rememberMe ? localStorage.getItem(SAVED_PASSWORD_KEY) : null;
+            
+            if (rememberMe) {
+                rememberMeCheckbox.checked = true;
+                
+                if (savedPassword && savedPassword === CORRECT_PASSWORD) {
+                    // Automatické přihlášení pokud je heslo uloženo a správné
+                    passwordInput.value = savedPassword;
+                    login();
+                }
+            }
+        });
+        
+        // Přihlašovací funkce
+        function login() {
+            const enteredPassword = passwordInput.value.trim();
+            
+            if (enteredPassword === CORRECT_PASSWORD) {
+                // Uložení hesla pokud je zaškrtnuto "Zapamatovat si mě"
+                if (rememberMeCheckbox.checked) {
+                    localStorage.setItem(REMEMBER_ME_KEY, "true");
+                    localStorage.setItem(SAVED_PASSWORD_KEY, enteredPassword);
+                } else {
+                    // Pokud není zaškrtnuto, vymažeme uložená data
+                    localStorage.removeItem(REMEMBER_ME_KEY);
+                    localStorage.removeItem(SAVED_PASSWORD_KEY);
+                }
+                
+                showSecuredContent();
+            } else {
+                errorMsg.style.display = "block";
+                passwordInput.style.borderColor = "var(--error-color)";
+                passwordInput.focus();
+            }
+        }
+        
+        // Přihlašovací tlačítko
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            login();
+        });
+        
+        // Reset chybové zprávy při novém zadávání
+        passwordInput.addEventListener("input", () => {
+            errorMsg.style.display = "none";
+            passwordInput.style.borderColor = "#e9ecef";
+        });
+        
+        // Odhlašovací tlačítko
+        logoutBtn.addEventListener("click", () => {
+            // Pokud není zaškrtnuto "Zapamatovat si mě", vymažeme heslo
+            if (!rememberMeCheckbox.checked) {
+                localStorage.removeItem(SAVED_PASSWORD_KEY);
+            }
+            
+            showLoginForm();
+            passwordInput.value = "";
+            errorMsg.style.display = "none";
+            passwordInput.style.borderColor = "#e9ecef";
+        });
+        
+        // Funkce pro zobrazení zabezpečeného obsahu
+        function showSecuredContent() {
+            loginSection.style.display = "none";
+            securedContent.style.display = "block";
+        }
+        
+        // Funkce pro zobrazení přihlašovacího formuláře
+        function showLoginForm() {
+            loginSection.style.display = "flex";
+            securedContent.style.display = "none";
+        }
+    </script>
+</body>
+</html>
