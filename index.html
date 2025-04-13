@@ -207,6 +207,30 @@
             margin-bottom: 1rem;
         }
         
+        /* Nové tlačítko s gradientem */
+        .launch-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+        
+        .launch-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        }
+        
         .logout-btn {
             background: var(--light-color);
             color: var(--error-color);
@@ -286,8 +310,9 @@
                         </svg>
                     </div>
                     <h3>Spustit</h3>
-                    <p>...</p>
+                    <button class="launch-btn">Spustit Kotak OS</button>
                 </div>
+            </div>
             
             <button id="logoutBtn" class="btn logout-btn">Odhlásit se</button>
         </div>
