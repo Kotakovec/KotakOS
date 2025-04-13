@@ -1,0 +1,52 @@
+ .u-section-1 {
+  background-image: url("images/blue-purple-gradient-minimalist-technology-with-dreamy-geometric-background_1091270-52028.jpg");
+  background-position: 50% 50%;
+}
+
+.u-section-1 .u-sheet-1 {
+  min-height: 400px;
+}
+
+.u-section-1 .u-image-1 {
+  --radius: 10px;
+  width: 300px;
+  height: 300px;
+  margin: 30px auto 0;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 330px;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 253px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-sheet-1 {
+    min-height: 190px;
+  }
+}
+
+@media (max-width: 575px) {
+   .u-section-1 {
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .u-section-1 .u-sheet-1 {
+    min-height: 100vh;
+  }
+
+  .u-section-1 .u-image-1 {
+    --radius: 20px;
+    width: 75px;
+    height: 75px;
+    margin-top: 258px;
+    margin-bottom: 60px;
+  }
+}
